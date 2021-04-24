@@ -2,7 +2,7 @@
 
 ## Installation
 
-Use the package manager [npm] to install.
+Use the package manager `npm` to install.
 
 ```bash
 npm install
