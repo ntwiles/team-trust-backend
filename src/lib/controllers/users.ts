@@ -1,15 +1,15 @@
-import { getUserById, getUsersByChannel } from '../dal/users'
+import { User } from '../dal/users'
 
 export const UsersController = {
     async index(req, res) {
         const { interest, location } = req.params
-        const users = getUsersByChannel({ interest, location })
+        const users = User.getByChannel({ interest, location })
         res.send(users)
     },
 
     async show(req, res) {
         const { userId } = req.params
-        const user = getUserById(userId)
+        const user = User.getById(userId)
         res.send(user)
     },
 }

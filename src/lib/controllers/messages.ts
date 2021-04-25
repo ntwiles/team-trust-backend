@@ -1,9 +1,9 @@
-import { getMessagesByChannel } from '../dal/messages'
+import { Message } from '../dal/messages'
 
 export const MessagesController = {
     async index(req, res) {
         const { interest, location } = req.params
-        const messages = getMessagesByChannel({ interest, location })
+        const messages = Message.getByChannel({ interest, location })
         res.send(messages)
     },
 }

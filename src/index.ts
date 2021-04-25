@@ -4,9 +4,14 @@ import { MessagesController } from './lib/controllers/messages'
 import { UsersController } from './lib/controllers/users'
 import { locations } from './types/location'
 import { interests } from './types/interest'
+import { Message } from './lib/dal/messages'
+import { User } from './lib/dal/users'
 
 const app = express()
 const port = 3000
+
+Message.init()
+User.init()
 
 app.get('/', (_, res) => res.send('Hello world!'))
 
