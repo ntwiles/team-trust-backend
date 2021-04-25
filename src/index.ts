@@ -1,23 +1,24 @@
-import * as express from 'express'
-import 'dotenv/config'
-import { MessagesController } from './lib/controllers/messages'
-import { UsersController } from './lib/controllers/users'
+import express from 'express'
+import { MessagesController } from './controllers/messages'
+import { UsersController } from './controllers/users'
 import { locations } from './types/location'
 import { interests } from './types/interest'
-import { Message } from './lib/dal/messages'
-import { User } from './lib/dal/users'
+import { MessageModel } from './dal/messages'
+import { UserModel } from './dal/users'
 
 const app = express()
 const port = 3000
 
-Message.init()
-User.init()
+;(async () => await Promise.all([MessageModel.init(), UserModel.init()]))()
 
-app.get('/', (_, res) => res.send('Hello world!'))
+app.use(express.json())
 
 app.get('/user/:userId', UsersController.show)
 app.get('/users/:location/:interest', UsersController.index)
+
 app.get('/messages/:location/:interest', MessagesController.index)
+app.post('/messages/:location/:interest', MessagesController.create)
+
 app.get('/locations', (_, res) => res.send(locations))
 app.get('/interests', (_, res) => res.send(interests))
 

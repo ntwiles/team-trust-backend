@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
-
-rm -r build/src
-cp -r src build
-cd build
+rm -r lib
 tsc --build tsconfig.json

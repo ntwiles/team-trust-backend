@@ -1,9 +1,9 @@
-import { IChannel } from './channel'
-import { IUser } from './user'
+import { Channel } from './channel'
+import { User } from './user'
 
 export interface IMessage {
     body: string
     timestamp: Date
-    user: IUser | string
-    channel: IChannel
+    user: User | string
+    channel: Channel
 }
