@@ -1,4 +1,4 @@
-import { Channel } from '../types/channel'
+import { IChannel } from '../types/channel'
 import { User } from '../types/user'
 import { readFile, writeFile } from '../fileIO'
 
@@ -25,7 +25,7 @@ export class UserModel {
         return user
     }
 
-    static getByChannel = (channel: Channel): User[] => {
+    static getByChannel = (channel: IChannel): User[] => {
         return UserModel.users.filter(
             (u) =>
                 u.locations.includes(channel.location) &&

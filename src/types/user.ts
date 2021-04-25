@@ -1,6 +1,4 @@
-import { Interest, interests } from './interest'
-import { Location, locations } from './location'
-import { object, string, array, SchemaOf, InferType } from 'yup'
+import { object, string, array, InferType } from 'yup'
 
 export const userSchema = object({
     avatar: string(),
@@ -8,18 +6,10 @@ export const userSchema = object({
     displayName: string().required(),
     id: string().required(),
     interests: array()
-        .of(
-            string()
-                .oneOf([...interests])
-                .required()
-        )
+        .of(string().required())
         .required(),
     locations: array()
-        .of(
-            string()
-                .oneOf([...locations])
-                .required()
-        )
+        .of(string().required())
         .required(),
 }).defined()
 

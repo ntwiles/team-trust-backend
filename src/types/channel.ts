@@ -1,14 +1,11 @@
-import { interests } from './interest'
-import { locations } from './location'
-import { InferType, object, SchemaOf, string } from 'yup'
+import { Asserts, object, string } from 'yup'
 
 export const channelSchema = object({
-    interest: string()
-        .oneOf([...interests])
-        .required(),
-    location: string()
-        .oneOf([...locations])
-        .required(),
-})
+    interest: string().required(),
+    location: string().required(),
+}).required()
 
-export type Channel = InferType<typeof channelSchema>
+export interface IChannel extends Asserts<typeof channelSchema> {
+    interest: string,
+    location: string,
+}
