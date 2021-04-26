@@ -4,6 +4,26 @@ import { writeFile } from "../../../src/fileIO"
 
 const filePath = 'tests/data/interests.json'
 
+describe('init', () => {
+    it('loads valid interests data', async () => {
+        const interests = faker.random.words(20).split(' ')
+        await writeFile(filePath, JSON.stringify(interests))
+        await InterestModel.init(filePath)
+        const loaded = InterestModel.get()
+        expect(interests).toEqual(loaded)
+    })
+
+    it('throws validation error with invalid data', async () => {
+        const interests = faker.random.alphaNumeric()
+        await writeFile(filePath, JSON.stringify(interests))
+        await expect(InterestModel.init(filePath)).rejects.toThrow(
+            expect.objectContaining({
+                status: 500
+            })
+        )
+    })
+})
+
 describe('add', () => {
 
     beforeEach(async () => {

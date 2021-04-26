@@ -1,10 +1,30 @@
+import faker from "faker"
 import { LocationModel } from "../../../src/dal/locations"
 import { writeFile } from "../../../src/fileIO"
 
 const filePath = 'tests/data/locations.json'
 
-describe('add', () => {
+describe('init', () => {
+    it('loads valid locations data', async () => {
+        const locations = faker.random.words(20).split(' ')
+        await writeFile(filePath, JSON.stringify(locations))
+        await LocationModel.init(filePath)
+        const loaded = LocationModel.get()
+        expect(locations).toEqual(loaded)
+    })
 
+    it('throws validation error with invalid data', async () => {
+        const locations = faker.random.alphaNumeric()
+        await writeFile(filePath, JSON.stringify(locations))
+        await expect(LocationModel.init(filePath)).rejects.toThrow(
+            expect.objectContaining({
+                status: 500
+            })
+        )
+    })
+})
+
+describe('add', () => {
     beforeEach(async () => {
         await LocationModel.init(filePath)
     })

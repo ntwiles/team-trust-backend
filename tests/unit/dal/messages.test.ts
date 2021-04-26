@@ -9,12 +9,12 @@ import { User } from "../../../src/types/user"
 const messagesFilePath = 'tests/data/messages.json'
 const usersFilePath = 'tests/data/users.json'
 
-beforeAll(async () => {
-    await MessageModel.init(messagesFilePath)
-    await UserModel.init(usersFilePath)
-})
-
 describe('add', () => {
+
+    beforeAll(async () => {
+        await MessageModel.init(messagesFilePath)
+        await UserModel.init(usersFilePath)
+    })
 
     let user: User
     let channel: Channel
