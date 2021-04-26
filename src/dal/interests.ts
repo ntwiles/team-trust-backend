@@ -27,9 +27,9 @@ export class InterestModel {
     }
 
     static async add(interest: string) {
-        if (!interest) throw new HttpError(400, `Could not add empty interest.`)
+        if (!interest) throw new HttpError(400, `Cannot add empty interest.`)
         if (InterestModel.interests.includes(interest))
-            throw new HttpError(400, `Could not add. Interest ${interest} already exists.`)
+            throw new HttpError(400, `Could not add interst. Interest already exists: ${interest}`)
 
         InterestModel.interests.push(interest)
         return InterestModel.save()
