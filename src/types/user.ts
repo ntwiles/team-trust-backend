@@ -11,7 +11,7 @@ export const userSchema = object({
     locations: array()
         .of(string().required())
         .required(),
-}).defined()
+}).required()
 
 export type User = InferType<typeof userSchema>
 

@@ -1,4 +1,4 @@
-import { IChannel } from '../types/channel'
+import { Channel } from '../types/channel'
 import { IMessage } from '../types/message'
 import { readFile, writeFile } from '../fileIO'
 import { UserModel } from './users'
@@ -29,7 +29,7 @@ export class MessageModel {
         return MessageModel.save()
     }
 
-    static getByChannel(channel: IChannel): IMessage[] {
+    static getByChannel(channel: Channel): IMessage[] {
         return MessageModel.messages
             .filter(
                 (m) =>

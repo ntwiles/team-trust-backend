@@ -1,5 +1,5 @@
 
-export interface IChannel {
+export type Channel = {
     interest: string,
     location: string,
 }

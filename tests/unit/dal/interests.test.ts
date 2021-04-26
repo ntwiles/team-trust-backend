@@ -1,3 +1,4 @@
+import faker from "faker"
 import { InterestModel } from "../../../src/dal/interests"
 import { writeFile } from "../../../src/fileIO"
 
@@ -10,10 +11,10 @@ describe('add', () => {
     })
 
     it('adds a new interest', async () => {
-        expect(InterestModel.get()).not.toContain('foo')
-        await InterestModel.add('foo')
-        expect(1).toEqual(1)
-        expect(InterestModel.get()).toContain('foo')
+        const interest = faker.random.word()
+        expect(InterestModel.get()).not.toContain(interest)
+        await InterestModel.add(interest)
+        expect(InterestModel.get()).toContain(interest)
     })
 
     it('will not add empty interests', async () => {
@@ -24,11 +25,12 @@ describe('add', () => {
     })
 
     it('will not add duplicate interests', async () => {
-        await InterestModel.add('foo')
+        const interest = faker.random.word()
 
-        await expect(InterestModel.add('foo')).rejects.toThrow(
+        await InterestModel.add(interest)
+        await expect(InterestModel.add(interest)).rejects.toThrow(
             expect.objectContaining({ status: 400 }))
-        expect(InterestModel.get()).not.toEqual(["foo", "foo"])
+        expect(InterestModel.get()).not.toEqual([interest, interest])
     })
 })
 
