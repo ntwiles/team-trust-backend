@@ -1,18 +1,17 @@
-import { IMessage, MessageCreateReq, messageCreateReqSchema } from '../types/message'
+import { Message, MessageCreateReq, messageCreateReqSchema } from '../types/message'
 import { MessageModel } from '../dal/messages'
 import { NextFunction, Request, Response } from 'express'
-import { ValidationError } from 'yup'
 import { HttpError } from '../types/error'
 import { UserModel } from '../dal/users'
 
 export const MessagesController = {
-    async index(req: Request, res: Response) {
+    index(req: Request, res: Response): void {
         const { location, interest } = req.params
         const messages = MessageModel.getByChannel({ location, interest })
         res.status(messages.length ? 200 : 204).send(messages)
     },
 
-    async create(req: Request, res: Response, next: NextFunction) {
+    async create(req: Request, res: Response, next: NextFunction): Promise<void> {
         let create: MessageCreateReq
         try { create = await messageCreateReqSchema.validate(req.body) }
         catch (err) { return next(new HttpError(400, err)) }
@@ -24,7 +23,7 @@ export const MessagesController = {
         try { UserModel.getById(user) }
         catch (err) { return next(err) }
 
-        const message: IMessage = {
+        const message: Message = {
             user,
             body,
             timestamp: new Date(),

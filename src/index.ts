@@ -7,20 +7,14 @@ import { InterestModel } from './dal/interests'
 import { LocationModel } from './dal/locations'
 import { MessageModel } from './dal/messages'
 import { UserModel } from './dal/users'
+import { init } from './middleware/init'
 import { HttpError } from './types/error'
 
 const app = express()
 const port = 3000
 
-    // TODO: Move this to middleware
-    ; (async () => await Promise.all([
-        MessageModel.init('data/messages.json'),
-        UserModel.init('data/users.json'),
-        InterestModel.init('data/interests/json'),
-        LocationModel.init('data/locations.json')
-    ]))()
-
 app.use(express.json())
+app.use(init)
 
 app.get('/user/:userId', UsersController.show)
 app.get('/users/:location/:interest', UsersController.index)

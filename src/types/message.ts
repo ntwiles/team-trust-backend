@@ -1,13 +1,14 @@
-import { IChannel } from './channel'
-import { User } from './user'
-import { object, string, InferType } from 'yup'
+import { channelSchema } from './channel'
+import { object, string, InferType, date, mixed } from 'yup'
 
-export interface IMessage {
-    body: string
-    timestamp: Date
-    user: User | string
-    channel: IChannel
-}
+export const messageSchema = object({
+    body: string().required(),
+    timestamp: date().required(),
+    user: mixed(),
+    channel: channelSchema.required()
+})
+
+export type Message = InferType<typeof messageSchema>
 
 export const messageCreateReqSchema = object({
     user: string().required(),

@@ -1,6 +1,5 @@
 import { InterestModel } from '../dal/interests'
 import { NextFunction, Request, Response } from 'express'
-import { HttpError } from '../types/error'
 
 export const InterestsController = {
     async index(_: Request, res: Response, next: NextFunction) {

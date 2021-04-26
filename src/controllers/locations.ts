@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 import { HttpError } from '../types/error'
 
 export const LocationsController = {
-    async index(_: Request, res: Response, next: NextFunction) {
+    index(_: Request, res: Response, next: NextFunction): void {
         let locations
         try { locations = LocationModel.get() }
         catch (err) { return next(new HttpError(500, err)) }
