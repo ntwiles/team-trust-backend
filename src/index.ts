@@ -1,4 +1,5 @@
-import express, { NextFunction, Request, Response } from 'express'
+/* eslint-disable @typescript-eslint/unbound-method, @typescript-eslint/no-misused-promises */
+import express, { Request, Response } from 'express'
 import { InterestsController } from './controllers/interests'
 import { LocationsController } from './controllers/locations'
 import { MessagesController } from './controllers/messages'
@@ -22,11 +23,10 @@ app.post('/messages/:location/:interest', MessagesController.create)
 app.get('/locations', LocationsController.index)
 app.get('/interests', InterestsController.index)
 
-app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((err: HttpError, req: Request, res: Response) => {
     console.log(err)
     res.status(err.status).send(err.message)
 })
-
 
 app.listen(port, () => console.log('Listening @ http://localhost:3000'))
 

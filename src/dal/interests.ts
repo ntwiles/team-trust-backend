@@ -20,8 +20,7 @@ export class InterestModel {
 
         await readFile(InterestModel.filePath)
             .then(async buffer => {
-                // eslint-disable-next-line
-                const data: any = JSON.parse(buffer.toString())
+                const data: unknown = JSON.parse(buffer.toString())
                 InterestModel.interests = await interestsSchema.validate(data)
             })
             .catch(err => { throw new HttpError(500, err) })

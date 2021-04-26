@@ -32,7 +32,7 @@ export const UsersController = {
 
         const { userId } = req.params;
 
-        try { await UserModel.updateById(userId, update!) }
+        try { await UserModel.updateById(userId, update) }
         catch (err) { return next(err) }
 
         res.status(200).send()

@@ -17,8 +17,7 @@ export class UserModel {
         UserModel.filePath = path
         await readFile(UserModel.filePath)
             .then(async buffer => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const data: any = JSON.parse(buffer.toString())
+                const data: unknown = JSON.parse(buffer.toString())
                 UserModel.users = await array().of(userSchema).required().validate(data)
             })
             .catch(err => { throw new HttpError(500, err) })

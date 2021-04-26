@@ -19,8 +19,7 @@ export class LocationModel {
         LocationModel.filePath = path
         await readFile(LocationModel.filePath)
             .then(async buffer => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const data: any = JSON.parse(buffer.toString())
+                const data: unknown = JSON.parse(buffer.toString())
                 const locations: string[] = await locationsSchema.validate(data)
                 LocationModel.locations = locations
             })

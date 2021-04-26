@@ -22,8 +22,7 @@ export class MessageModel {
         MessageModel.filePath = path
         return readFile(MessageModel.filePath)
             .then(async buffer => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const data: any = JSON.parse(buffer.toString())
+                const data: unknown = JSON.parse(buffer.toString())
                 MessageModel.messages = await array().of(messageSchema).required().validate(data)
 
             })

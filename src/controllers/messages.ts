@@ -17,7 +17,7 @@ export const MessagesController = {
         catch (err) { return next(new HttpError(400, err)) }
 
         const { location, interest } = req.params
-        const { user, body } = create!
+        const { user, body } = create
 
         // Make sure we're not creating a message from a user that doesn't exist.
         try { UserModel.getById(user) }

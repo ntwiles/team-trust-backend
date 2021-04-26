@@ -47,9 +47,9 @@ describe('add', () => {
             displayName: faker.name.firstName(),
             interests: [channel.interest],
             locations: [channel.location]
-        }
+        } as User
 
-        const createdUser = await UserModel.add(partialUser as any)
+        const createdUser = await UserModel.add(partialUser)
         expect(createdUser.id).not.toEqual(idToIgnore)
     })
 })
