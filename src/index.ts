@@ -9,7 +9,7 @@ import { HttpError } from './types/error'
 import cors from 'cors'
 
 const app = express()
-const port = 3000
+const port = 5000
 
 app.use(express.json())
 app.use(cors())
@@ -30,6 +30,6 @@ app.use((err: HttpError, req: Request, res: Response, _: NextFunction) => {
     res.status(err.status).send()
 })
 
-app.listen(port, () => console.log('Listening @ http://localhost:3000'))
+app.listen(port, () => console.log('Listening @ http://localhost:5000'))
 
 
