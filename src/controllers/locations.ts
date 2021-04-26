@@ -9,5 +9,5 @@ export const LocationsController = {
         catch (err) { return next(new HttpError(500, err)) }
 
         res.status(locations.length ? 200 : 204).send(locations)
-    },
+    }
 }

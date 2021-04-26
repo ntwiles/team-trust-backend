@@ -4,7 +4,7 @@ import { HttpError } from '../types/error'
 import { userUpdateReqSchema, UserUpdateReq, User } from '../types/user'
 
 export const UsersController = {
-    async index(req: Request, res: Response, next: NextFunction) {
+    index(req: Request, res: Response, next: NextFunction): void {
         const { interest, location } = req.params
 
         try {
@@ -15,17 +15,17 @@ export const UsersController = {
         }
     },
 
-    async show(req: Request, res: Response, next: NextFunction) {
+    show(req: Request, res: Response, next: NextFunction): void {
         const { userId } = req.params;
 
         let user: User
-        try { user = UserModel.getById(userId!) }
+        try { user = UserModel.getById(userId) }
         catch (err) { return next(err) }
 
         res.status(200).send(user)
     },
 
-    async update(req: Request, res: Response, next: NextFunction) {
+    async update(req: Request, res: Response, next: NextFunction): Promise<void> {
         let update: UserUpdateReq
         try { update = await userUpdateReqSchema.validate(req.body) }
         catch (err) { return next(new HttpError(400, err)) }
