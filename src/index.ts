@@ -12,7 +12,13 @@ import { HttpError } from './types/error'
 const app = express()
 const port = 3000
 
-    ; (async () => await Promise.all([MessageModel, UserModel, InterestModel, LocationModel].map(m => m.init())))()
+    // TODO: Move this to middleware
+    ; (async () => await Promise.all([
+        MessageModel.init('data/messages.json'),
+        UserModel.init('data/users.json'),
+        InterestModel.init('data/interests/json'),
+        LocationModel.init('data/locations.json')
+    ]))()
 
 app.use(express.json())
 

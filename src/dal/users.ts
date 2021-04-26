@@ -5,19 +5,21 @@ import { HttpError } from '../types/error'
 
 export class UserModel {
     static users: User[]
+    static filePath: string
 
     constructor() {
         throw new Error('Initialize using User.init()')
     }
 
-    static async init() {
-        await readFile('data/users.json')
+    static async init(path: string) {
+        UserModel.filePath = path
+        await readFile(UserModel.filePath)
             .then(data => (UserModel.users = JSON.parse(data.toString())))
             .catch(err => { throw new HttpError(500, err) })
     }
 
     static async save() {
-        await writeFile('data/users.json', JSON.stringify(UserModel.users))
+        await writeFile(UserModel.filePath, JSON.stringify(UserModel.users))
             .catch(err => { throw new HttpError(500, err) })
     }
 

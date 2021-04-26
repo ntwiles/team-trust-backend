@@ -6,18 +6,20 @@ import { HttpError } from '../types/error'
 
 export class MessageModel {
     static messages: IMessage[]
+    static filePath: string
 
     constructor() {
-        throw new Error('Initialize using Message.init()')
+        throw new Error('Initialize using MessageModel.init()')
     }
 
     static async save() {
-        return writeFile('data/messages.json', JSON.stringify(MessageModel.messages))
+        return writeFile(MessageModel.filePath, JSON.stringify(MessageModel.messages))
             .catch(err => { throw new HttpError(500, err) })
     }
 
-    static async init() {
-        return readFile('data/messages.json')
+    static async init(path: string) {
+        MessageModel.filePath = path
+        return readFile(MessageModel.filePath)
             .then((data) => (MessageModel.messages = JSON.parse(data.toString())))
             .catch(err => { throw new HttpError(500, err) })
     }
