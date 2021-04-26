@@ -14,3 +14,15 @@ export const userSchema = object({
 }).defined()
 
 export type User = InferType<typeof userSchema>
+
+export const userUpdateReqSchema = object({
+    avatar: string(),
+    bio: string(),
+    displayName: string(),
+    interests: array()
+        .of(string().required()),
+    locations: array()
+        .of(string().required())
+}).noUnknown().required()
+
+export type UserUpdateReq = InferType<typeof userUpdateReqSchema>

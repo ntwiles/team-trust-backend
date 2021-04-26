@@ -1,9 +1,13 @@
 import { InterestModel } from '../dal/interests'
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
+import { HttpError } from '../types/error'
 
 export const InterestsController = {
-    async index(req: Request, res: Response) {
-        const interests = InterestModel.get()
-        res.status(interests.length ? 200 : 204).send(InterestModel.get())
+    async index(_: Request, res: Response, next: NextFunction) {
+        let interests
+        try { interests = InterestModel.get() }
+        catch (err) { return next(err) }
+
+        res.status(interests.length ? 200 : 204).send(interests)
     },
 }
